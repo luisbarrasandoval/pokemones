@@ -17,6 +17,7 @@
 * Re-renderizado
 * Peticiones a la API
 * ver TODO en el codigo
+* Almacenar pokemones en el localstore
 
 # Video
 [Screencast from 03-09-22 15:55:05.webm](https://user-images.githubusercontent.com/95819756/188285956-1d2277c2-9e4b-42dc-9100-b033de3a44be.webm)
