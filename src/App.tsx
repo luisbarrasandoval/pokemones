@@ -1,25 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import DetailScreen from "./pages/DetailScreen";
+import { PokemonProvider } from "./contexts/PokemonsContext";
+import Home from "./pages/Home";
+import { motion } from "framer-motion";
+import NotFound from "./pages/NotFound";
+import LoadingPage from "./pages/LoadingPage";
+
+const PageLayoutAnimation = ({ children }: any) => {
+  const location = useLocation();
+  return (
+    <motion.div
+      key={location.pathname}
+      animate={{ opacity: 1}}
+      initial={{ opacity: 0 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.4 }}
+    >
+      {children}
+    </motion.div>
+  );
+};
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <PokemonProvider>
+        <PageLayoutAnimation>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/detail/:id" element={<DetailScreen />} />
+            <Route path="/load" element={<LoadingPage />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </PageLayoutAnimation>
+      </PokemonProvider>
+    </BrowserRouter>
   );
 }
 
